@@ -33,9 +33,11 @@ class CustomList extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Icon(Icons.arrow_right),
-              Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: Text(item),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Text(item),
+                ),
               ),
             ],
           ),
