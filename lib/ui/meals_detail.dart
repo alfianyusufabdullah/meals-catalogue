@@ -17,7 +17,8 @@ class MealsDetail extends StatelessWidget {
           headerSliverBuilder: (BuildContext context, bool inner) {
             return <Widget>[
               SliverAppBar(
-                expandedHeight: 220,
+                backgroundColor: Colors.transparent,
+                expandedHeight: 270,
                 floating: false,
                 pinned: false,
                 flexibleSpace: FlexibleSpaceBar(
@@ -52,13 +53,13 @@ class MealsDetail extends StatelessWidget {
                 child: RateWidget(rate: meals.rate),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 10, bottom: 10),
+                padding: EdgeInsets.only(top: 20, bottom: 10),
                 child: Text(meals.desc),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 20.0),
                 child: Text("Ingredient",
-                    style: TextStyle(color: Colors.black, fontSize: 17)),
+                    style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold)),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
@@ -69,7 +70,7 @@ class MealsDetail extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 16.0),
                 child: Text("Steps",
-                    style: TextStyle(color: Colors.black, fontSize: 17)),
+                    style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold)),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
