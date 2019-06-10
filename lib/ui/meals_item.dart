@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meals_catalogue/common/meals_common.dart';
 import 'package:meals_catalogue/model/meals.dart';
 import 'package:meals_catalogue/ui/meals_detail.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class MealItem extends StatelessWidget {
   final Meals meals;
@@ -17,13 +18,22 @@ class MealItem extends StatelessWidget {
           : EdgeInsets.only(left: 20, right: 10, top: 20),
       child: InkWell(
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => MealsDetail(
-                        meals: meals,
-                        position: position,
-                      )));
+          final bar = SnackBar(
+            content: Text("${meals.name} selected!"),
+            action: SnackBarAction(
+                label: "See Detail",
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MealsDetail(
+                                meals: meals,
+                                position: position,
+                              )));
+                }),
+          );
+
+          Scaffold.of(context).showSnackBar(bar);
         },
         borderRadius: BorderRadius.circular(10),
         child: Column(
@@ -35,9 +45,13 @@ class MealItem extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Hero(
-                    tag: '${meals.path}$position',
-                    child: Image.asset(
-                      meals.path,
+                    tag: '${meals.thumb}$position',
+                    child: CachedNetworkImage(
+                      placeholder: Image.asset(
+                        "asset/blur_image.png",
+                        fit: BoxFit.cover,
+                      ),
+                      imageUrl: meals.thumb,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
@@ -46,15 +60,10 @@ class MealItem extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 5),
-              child: Text(
-                meals.name,
-                style: TextStyle(color: Colors.black, fontSize: 14),
-              ),
-            ),
-            Padding(
               padding: EdgeInsets.only(bottom: 10),
-              child: RateWidget(rate: meals.rate),
+              child: SliceText(
+                text: meals.name,
+              ),
             ),
           ],
         ),

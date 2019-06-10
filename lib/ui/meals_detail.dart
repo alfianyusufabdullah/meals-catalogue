@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:meals_catalogue/common/meals_common.dart';
 import 'package:meals_catalogue/model/meals.dart';
@@ -24,9 +25,10 @@ class MealsDetail extends StatelessWidget {
                 flexibleSpace: FlexibleSpaceBar(
                   centerTitle: false,
                   background: Hero(
-                    tag: '${meals.path}$position',
-                    child: Image.asset(
-                      meals.path,
+                    tag: '${meals.thumb}$position',
+                    child: CachedNetworkImage(
+                      imageUrl: meals.thumb,
+                      width: double.infinity,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -49,17 +51,16 @@ class MealsDetail extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: RateWidget(rate: meals.rate),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20, bottom: 10),
-                child: Text(meals.desc),
+                padding: EdgeInsets.only(top: 10),
+                child: TagsMeal(tags: meals.tags),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 20.0),
                 child: Text("Ingredient",
-                    style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold)),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold)),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
@@ -70,7 +71,10 @@ class MealsDetail extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 16.0),
                 child: Text("Steps",
-                    style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold)),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold)),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
