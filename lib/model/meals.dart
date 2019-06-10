@@ -1,11 +1,9 @@
 class Meals {
   final String name;
-  final String desc;
+  final String thumb;
+  final List<String> tags;
   final List<String> ingredient;
   final List<String> steps;
-  final String path;
-  final int rate;
 
-  Meals(
-      this.name, this.desc, this.ingredient, this.steps, this.path, this.rate);
+  Meals(this.name, this.thumb, this.tags, this.ingredient, this.steps);
 }
