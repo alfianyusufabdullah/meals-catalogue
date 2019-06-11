@@ -3,27 +3,44 @@ import 'package:meals_catalogue/data/meals_data.dart';
 import 'package:meals_catalogue/model/meals.dart';
 import 'package:meals_catalogue/ui/meals_item.dart';
 
-class MealsDessert extends StatelessWidget {
+class MealsDessert extends StatefulWidget {
+  @override
+  _MealsDessertState createState() => _MealsDessertState();
+}
+
+class _MealsDessertState extends State<MealsDessert> {
+  List<Meals> _meals = [];
+
+  requestData() async {
+    List<Meals> response = await loadMealsFromNetwork("Dessert");
+    setState(() {
+      _meals = response;
+    });
+  }
+
+  @override
+  void initState() {
+    requestData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: FutureBuilder<List<Meals>>(
-        future: loadFromLocalAsset("asset/dessert.json"),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return GridView.builder(
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              itemCount: snapshot.data.length,
-              itemBuilder: (context, index) {
-                return MealItem(snapshot.data[index], index);
-              },
-            );
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
-    );
+    return home();
+  }
+
+  Widget home() {
+    if (_meals.length == 0) {
+      return Center(child: CircularProgressIndicator());
+    } else {
+      return Container(
+        child: GridView.builder(
+            gridDelegate:
+            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            itemCount: _meals.length,
+            itemBuilder: (context, position) =>
+                MealItem(_meals[position], position)),
+      );
+    }
   }
 }

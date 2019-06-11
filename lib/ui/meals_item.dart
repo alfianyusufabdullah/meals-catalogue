@@ -27,8 +27,8 @@ class MealItem extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => MealsDetail(
-                                meals: meals,
-                                position: position,
+                                id: meals.id,
+                                mealThumbs: meals.thumb,
                               )));
                 }),
           );
@@ -45,7 +45,7 @@ class MealItem extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Hero(
-                    tag: '${meals.thumb}$position',
+                    tag: meals.thumb,
                     child: CachedNetworkImage(
                       placeholder: Image.asset(
                         "asset/blur_image.png",
