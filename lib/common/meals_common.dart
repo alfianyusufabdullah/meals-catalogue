@@ -1,24 +1,5 @@
 import 'package:flutter/material.dart';
 
-class RateWidget extends StatelessWidget {
-  final int rate;
-
-  RateWidget({Key key, this.rate}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: List<Widget>.generate(
-          rate,
-          (index) => Icon(
-                Icons.favorite,
-                color: Colors.pink,
-                size: 15,
-              )),
-    );
-  }
-}
-
 class CustomList extends StatelessWidget {
   final List<String> data;
 
