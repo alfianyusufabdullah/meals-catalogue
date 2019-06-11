@@ -35,7 +35,7 @@ List<Meals> generateMealList(List<dynamic> data) {
   return result;
 }
 
-Meals generate(List<dynamic> data) {
+Meals generateMeal(List<dynamic> data) {
 
   dynamic item = data.first;
 

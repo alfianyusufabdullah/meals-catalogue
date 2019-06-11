@@ -15,5 +15,5 @@ Future<Meals> loadMealsDetailFromNetwork(String id) async {
       .get("https://www.themealdb.com/api/json/v1/1/lookup.php?i=$id")
       .then((response) => generateResponse(response))
       .then((json) => generateList(json))
-      .then((meals) => generate(meals));
+      .then((meals) => generateMeal(meals));
 }
