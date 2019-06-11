@@ -47,6 +47,8 @@ class MealItem extends StatelessWidget {
                   child: Hero(
                     tag: meals.thumb,
                     child: CachedNetworkImage(
+                      fadeInDuration: Duration(milliseconds: 100),
+                      fadeOutDuration: Duration(milliseconds: 100),
                       placeholder: Image.asset(
                         "asset/blur_image.png",
                         fit: BoxFit.cover,
