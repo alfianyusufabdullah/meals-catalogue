@@ -7,8 +7,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 class MealItem extends StatelessWidget {
   final Meals meals;
   final int position;
+  final String category;
 
-  MealItem(this.meals, this.position);
+  MealItem(this.meals, this.position, this.category);
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class MealItem extends StatelessWidget {
                           builder: (context) => MealsDetail(
                                 id: meals.id,
                                 mealThumbs: meals.thumb,
+                                category: category,
                               )));
                 }),
           );
@@ -49,10 +51,10 @@ class MealItem extends StatelessWidget {
                     child: CachedNetworkImage(
                       fadeInDuration: Duration(milliseconds: 100),
                       fadeOutDuration: Duration(milliseconds: 100),
-                      placeholder: Image.asset(
-                        "asset/blur_image.png",
-                        fit: BoxFit.cover,
-                      ),
+                      placeholder: (_, args) => Image.asset(
+                            "asset/blur_image.png",
+                            fit: BoxFit.cover,
+                          ),
                       imageUrl: meals.thumb,
                       width: double.infinity,
                       fit: BoxFit.cover,

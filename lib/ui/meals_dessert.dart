@@ -36,10 +36,10 @@ class _MealsDessertState extends State<MealsDessert> {
       return Container(
         child: GridView.builder(
             gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
             itemCount: _meals.length,
             itemBuilder: (context, position) =>
-                MealItem(_meals[position], position)),
+                MealItem(_meals[position], position, "dessert")),
       );
     }
   }

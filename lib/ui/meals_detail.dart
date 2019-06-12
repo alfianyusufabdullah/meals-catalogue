@@ -6,9 +6,10 @@ import 'package:meals_catalogue/model/meals.dart';
 
 class MealsDetail extends StatefulWidget {
   final String id;
+  final String category;
   final String mealThumbs;
 
-  const MealsDetail({Key key, this.id, this.mealThumbs}) : super(key: key);
+  const MealsDetail({Key key, this.id, this.mealThumbs, this.category}) : super(key: key);
 
   @override
   _MealsDetailState createState() => _MealsDetailState();
