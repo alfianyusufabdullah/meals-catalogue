@@ -36,12 +36,12 @@ List<Meals> generateMealList(List<dynamic> data) {
 }
 
 Meals generateMeal(List<dynamic> data) {
-
   dynamic item = data.first;
 
   List<String> ingredient = generateIngredient(item);
   List<String> tags = generateTags((item["strTags"] as String));
   List<String> steps = generateSteps(item);
+  ingredient.removeWhere((value) => value == null || value.isEmpty);
   steps.removeWhere((value) => value == null || value.isEmpty);
 
   return Meals(
