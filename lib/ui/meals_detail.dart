@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:meals_catalogue/common/meals_common.dart';
 import 'package:meals_catalogue/data/meals_data.dart';
+import 'package:meals_catalogue/database/meals_database.dart';
 import 'package:meals_catalogue/model/meals.dart';
 
 class MealsDetail extends StatefulWidget {
@@ -9,7 +11,8 @@ class MealsDetail extends StatefulWidget {
   final String category;
   final String mealThumbs;
 
-  const MealsDetail({Key key, this.id, this.mealThumbs, this.category}) : super(key: key);
+  const MealsDetail({Key key, this.id, this.mealThumbs, this.category})
+      : super(key: key);
 
   @override
   _MealsDetailState createState() => _MealsDetailState();
@@ -17,17 +20,40 @@ class MealsDetail extends StatefulWidget {
 
 class _MealsDetailState extends State<MealsDetail>
     with TickerProviderStateMixin {
-  Meals _meals;
-  bool _isFavorite = false;
+  DatabaseHelper _databaseHelper = DatabaseHelper.instance;
 
+  Meals _meals;
+
+  bool _isFavorite = false;
   ScrollController _scrollController;
   AnimationController _animationController;
   Animation<double> _floatingAnimation;
 
   requestData() async {
     var meal = await loadMealsDetailFromNetwork(widget.id);
+    bool favorite = await _databaseHelper.isFavorite(meal.id);
     setState(() {
       _meals = meal;
+      _isFavorite = favorite;
+    });
+  }
+
+  updateFavorite(){
+    if (_isFavorite){
+      _databaseHelper.deleteMeal(_meals.id);
+    } else {
+      Map<String, dynamic> data = {
+        DatabaseHelper.colIdMeal : _meals.id,
+        DatabaseHelper.colCategoryMeal : widget.category,
+        DatabaseHelper.colNameMeal : _meals.name,
+        DatabaseHelper.colThumbMeal : _meals.thumb,
+      };
+
+      _databaseHelper.insertMeal(data);
+    }
+
+    setState(() {
+      _isFavorite = !_isFavorite;
     });
   }
 
@@ -54,13 +80,23 @@ class _MealsDetailState extends State<MealsDetail>
     });
 
     _animationController.forward();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+      ),
+    );
+
     return MaterialApp(
       title: "Detail",
+      theme: ThemeData(
+        primaryColor: Colors.white,
+      ),
       home: Scaffold(
         body: NestedScrollView(
           controller: _scrollController,
@@ -151,11 +187,7 @@ class _MealsDetailState extends State<MealsDetail>
               alignment: FractionalOffset.center,
               child: FloatingActionButton(
                 backgroundColor: Colors.pink,
-                onPressed: () {
-                  setState(() {
-                    _isFavorite = !_isFavorite;
-                  });
-                },
+                onPressed: updateFavorite,
                 child: Icon(
                   _isFavorite ? Icons.favorite : Icons.favorite_border,
                   color: Colors.white,

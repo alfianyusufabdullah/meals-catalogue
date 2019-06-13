@@ -15,8 +15,8 @@ class MealItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: position % 2 == 1
-          ? EdgeInsets.only(left: 10, right: 20, top: 20)
-          : EdgeInsets.only(left: 20, right: 10, top: 20),
+          ? EdgeInsets.only(left: 10, right: 20, bottom: 20)
+          : EdgeInsets.only(left: 20, right: 10, bottom: 20),
       child: InkWell(
         onTap: () {
           final bar = SnackBar(

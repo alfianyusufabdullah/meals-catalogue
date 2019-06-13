@@ -10,23 +10,63 @@ class MealsSeafood extends StatefulWidget {
 
 class _MealsSeafoodState extends State<MealsSeafood> {
   List<Meals> _meals = [];
+  double _elevation = 0;
+  ScrollController _scrollController = ScrollController();
 
   requestData() async {
     List<Meals> response = await loadMealsFromNetwork("Seafood");
-    setState(() {
-      _meals = response;
-    });
+    if (this.mounted) {
+      setState(() {
+        _meals = response;
+      });
+    }
   }
 
   @override
   void initState() {
     requestData();
+    _scrollController.addListener(() {
+      setState(() {
+        if (_scrollController.offset > 50) {
+          _elevation = 8.0;
+        } else {
+          _elevation = 0.0;
+        }
+      });
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return home();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: NestedScrollView(
+        controller: _scrollController,
+        headerSliverBuilder: (context, inner) {
+          return [
+            SliverAppBar(
+              elevation: _elevation,
+              backgroundColor: Color.fromARGB(220, 255, 255, 255),
+              title: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(right: 20.0, left: 5.0),
+                    child: Image.asset("asset/shrimp.png"),
+                  ),
+                  Text("Seafood"),
+                ],
+              ),
+              centerTitle: true,
+              floating: true,
+              pinned: true,
+              snap: false,
+            ),
+          ];
+        },
+        body: home(),
+      ),
+    );
   }
 
   Widget home() {
