@@ -10,10 +10,10 @@ class DatabaseHelper {
 
   static final _mealTable = "meal_table";
 
-  static final _colIdMeal = "col_id";
-  static final _colCategoryMeal = "col_category";
-  static final _colThumbMeal = "col_thumb";
-  static final _colNameMeal = "col_name";
+  static final colIdMeal = "col_id";
+  static final colCategoryMeal = "col_category";
+  static final colThumbMeal = "col_thumb";
+  static final colNameMeal = "col_name";
 
   DatabaseHelper._instance();
 
@@ -40,10 +40,10 @@ class DatabaseHelper {
   Future _onCreate(Database db, int version) async {
     await db.execute('''
             CREATE TABLE $_mealTable ( 
-              $_colIdMeal INTEGER PRIMARY KEY,
-              $_colCategoryMeal TEXT NON NULL,
-              $_colNameMeal TEXT NON NULL,
-              $_colThumbMeal TEXT NON NULL
+              $colIdMeal INTEGER PRIMARY KEY,
+              $colCategoryMeal TEXT NON NULL,
+              $colNameMeal TEXT NON NULL,
+              $colThumbMeal TEXT NON NULL
             ) 
     ''');
   }
@@ -53,11 +53,45 @@ class DatabaseHelper {
     return await database.insert(_mealTable, row);
   }
 
+  Future<int> deleteMeal(String id) async {
+    Database database = await instance.database;
+    return await database
+        .delete(_mealTable, where: "$colIdMeal LIKE ?", whereArgs: [id]);
+  }
+
+  Future<bool> isFavorite(String id) async {
+    Database database = await instance.database;
+
+    List<Map<String, dynamic>> data = await database.query(
+      _mealTable,
+      where: "$colIdMeal LIKE ?",
+      whereArgs: [id],
+    );
+
+    return data != null && data.isNotEmpty ? true : false;
+  }
+
   Future<List<Meals>> getMealFavorite(String category) async {
     Database database = await instance.database;
-    dynamic data = await database.query(
+
+    List<Map<String, dynamic>> data = await database.query(
       _mealTable,
-      where: "",
+      where: "$colCategoryMeal LIKE ?",
+      whereArgs: [category],
     );
+
+    List<Meals> result = [];
+
+    data.forEach((meal) {
+      Meals meals = Meals(
+        meal[colIdMeal],
+        meal[colNameMeal],
+        meal[colThumbMeal],
+      );
+
+      result.add(meals);
+    });
+
+    return result;
   }
 }
