@@ -39,13 +39,40 @@ class TagsMeal extends StatelessWidget {
       direction: Axis.horizontal,
       children: tags.map((item) {
         return Padding(
-          padding: EdgeInsets.only(left: 3.0, right: 3.0),
-          child: Chip(
-            label: Text(
-              item,
-              style: TextStyle(color: Colors.white),
+          padding: EdgeInsets.only(
+            left: 5,
+            right: 5,
+            top: 5,
+            bottom: 5,
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.blueAccent[200],
+                    Colors.blueAccent[100],
+                  ],
+                  begin: FractionalOffset.topLeft,
+                  end: FractionalOffset.bottomRight,
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: 15.0,
+                  right: 15.0,
+                  top: 10.0,
+                  bottom: 10.0,
+                ),
+                child: Text(
+                  item,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ),
-            backgroundColor: Colors.blue,
           ),
         );
       }).toList(),
