@@ -65,24 +65,19 @@ class _MealsHomeState extends State<MealsHome> {
         statusBarColor: Colors.transparent,
       ),
     );
-    return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.white,
-        accentColor: Colors.redAccent[100],
-      ),
-      home: Scaffold(
-        body: pageView(),
-        bottomNavigationBar: BottomNavigationBar(
-          onTap: (position) {
-            pageChanged(position);
-            _pageController.animateToPage(position,
-                duration: Duration(milliseconds: 300), curve: Curves.ease);
-          },
-          elevation: 15.0,
-          selectedItemColor: Colors.pink,
-          currentIndex: _currentIndex,
-          items: bottomNavigationItem,
-        ),
+    return Scaffold(
+      body: pageView(),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.shifting,
+        onTap: (position) {
+          pageChanged(position);
+          _pageController.animateToPage(position,
+              duration: Duration(milliseconds: 300), curve: Curves.ease);
+        },
+        elevation: 15.0,
+        selectedItemColor: Colors.pinkAccent,
+        currentIndex: _currentIndex,
+        items: bottomNavigationItem,
       ),
     );
   }
