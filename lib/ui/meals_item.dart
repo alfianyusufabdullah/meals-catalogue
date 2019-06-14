@@ -47,7 +47,7 @@ class MealItem extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Hero(
-                    tag: meals.thumb,
+                    tag: "${meals.thumb}-$category",
                     child: CachedNetworkImage(
                       fadeInDuration: Duration(milliseconds: 100),
                       fadeOutDuration: Duration(milliseconds: 100),
