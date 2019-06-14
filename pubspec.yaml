@@ -57,6 +57,7 @@ flutter:
     - asset/cake.png
     - asset/hearts.png
     - asset/shrimp.png
+    - asset/plate.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
