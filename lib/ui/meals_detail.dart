@@ -5,6 +5,7 @@ import 'package:meals_catalogue/common/meals_common.dart';
 import 'package:meals_catalogue/data/meals_data.dart';
 import 'package:meals_catalogue/database/meals_database.dart';
 import 'package:meals_catalogue/model/meals.dart';
+import 'package:synchronized/synchronized.dart';
 
 class MealsDetail extends StatefulWidget {
   final String id;
@@ -25,6 +26,9 @@ class _MealsDetailState extends State<MealsDetail>
   Meals _meals;
 
   bool _isFavorite = false;
+  bool _isTransparent = true;
+  double _elevation = 0;
+  String _appBarTittle = "";
   ScrollController _scrollController;
   AnimationController _animationController;
   Animation<double> _floatingAnimation;
@@ -38,15 +42,15 @@ class _MealsDetailState extends State<MealsDetail>
     });
   }
 
-  updateFavorite(){
-    if (_isFavorite){
+  updateFavorite() {
+    if (_isFavorite) {
       _databaseHelper.deleteMeal(_meals.id);
     } else {
       Map<String, dynamic> data = {
-        DatabaseHelper.colIdMeal : _meals.id,
-        DatabaseHelper.colCategoryMeal : widget.category,
-        DatabaseHelper.colNameMeal : _meals.name,
-        DatabaseHelper.colThumbMeal : _meals.thumb,
+        DatabaseHelper.colIdMeal: _meals.id,
+        DatabaseHelper.colCategoryMeal: widget.category,
+        DatabaseHelper.colNameMeal: _meals.name,
+        DatabaseHelper.colThumbMeal: _meals.thumb,
       };
 
       _databaseHelper.insertMeal(data);
@@ -72,10 +76,17 @@ class _MealsDetailState extends State<MealsDetail>
     _scrollController.addListener(() {
       var offset = _scrollController.offset;
       setState(() {
-        if (offset > 200) {
+        if (offset > 250) {
+          _isTransparent = false;
+          _elevation = 8.0;
+          _appBarTittle = _meals.name;
           _animationController.reverse();
-        } else
+        } else {
+          _isTransparent = false;
+          _elevation = 8.0;
+          _appBarTittle = "";
           _animationController.forward();
+        }
       });
     });
 
@@ -92,25 +103,31 @@ class _MealsDetailState extends State<MealsDetail>
       ),
     );
 
-    return MaterialApp(
-      title: "Detail",
-      theme: ThemeData(
-        primaryColor: Colors.white,
-      ),
-      home: Scaffold(
-        body: NestedScrollView(
+    return Scaffold(
+      body: WillPopScope(
+        onWillPop: () async {
+          close();
+        },
+        child: NestedScrollView(
           controller: _scrollController,
           headerSliverBuilder: (BuildContext context, bool inner) {
             return <Widget>[
               SliverAppBar(
-                backgroundColor: Colors.transparent,
+                leading: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: close,
+                ),
+                backgroundColor: _isTransparent
+                    ? Colors.transparent
+                    : Color.fromARGB(220, 255, 255, 255),
                 expandedHeight: 270,
+                elevation: _elevation,
+                title: Text(_appBarTittle),
                 floating: false,
-                pinned: false,
+                pinned: true,
                 flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: false,
                   background: Hero(
-                    tag: widget.mealThumbs,
+                    tag: "${widget.mealThumbs}-${widget.category}",
                     child: CachedNetworkImage(
                       imageUrl: widget.mealThumbs,
                       width: double.infinity,
@@ -125,6 +142,16 @@ class _MealsDetailState extends State<MealsDetail>
         ),
       ),
     );
+  }
+
+  close() async {
+    var lock = Lock();
+    await lock.synchronized(() async {
+      await _scrollController.animateTo(0,
+          duration: Duration(milliseconds: 200), curve: Curves.ease);
+
+      Navigator.of(context).pop();
+    });
   }
 
   Widget detail() {
@@ -186,7 +213,7 @@ class _MealsDetailState extends State<MealsDetail>
               scale: _floatingAnimation,
               alignment: FractionalOffset.center,
               child: FloatingActionButton(
-                backgroundColor: Colors.pink,
+                backgroundColor: Colors.pinkAccent,
                 onPressed: updateFavorite,
                 child: Icon(
                   _isFavorite ? Icons.favorite : Icons.favorite_border,
