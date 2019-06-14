@@ -40,7 +40,7 @@ class DatabaseHelper {
   Future _onCreate(Database db, int version) async {
     await db.execute('''
             CREATE TABLE $_mealTable ( 
-              $colIdMeal INTEGER PRIMARY KEY,
+              $colIdMeal TEXT PRIMARY KEY,
               $colCategoryMeal TEXT NON NULL,
               $colNameMeal TEXT NON NULL,
               $colThumbMeal TEXT NON NULL
