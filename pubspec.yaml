@@ -23,10 +23,20 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  http: ^0.11.3+14
+  pull_to_refresh: ^1.4.4
+  cached_network_image: any
+  sqflite: any
+  path_provider: any
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_driver:
+    sdk: flutter
+  test: any
+  mockito: ^4.0.0
 
 
 # For information on the generic Dart part of this file, see the
@@ -42,21 +52,13 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - image/ayam_bakar.png
-    - image/ayam_panggang.png
-    - image/bakwan.png
-    - image/cah_kangkung.png
-    - image/capcay.png
-    - image/katsu.png
-    - image/lumpia.png
-    - image/mie_goreng.png
-    - image/nas_goreng.png
-    - image/omelette.png
-    - image/pepes.png
-    - image/sapi_lada_hitam.png
-    - image/sup_ayam.png
-    - image/sate_lilit.png
-    - image/udang_goreng.png
+    - asset/seafood.json
+    - asset/dessert.json
+    - asset/blur_image.png
+    - asset/cake.png
+    - asset/hearts.png
+    - asset/shrimp.png
+    - asset/plate.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

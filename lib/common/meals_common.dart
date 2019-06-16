@@ -1,24 +1,5 @@
 import 'package:flutter/material.dart';
 
-class RateWidget extends StatelessWidget {
-  final int rate;
-
-  RateWidget({Key key, this.rate}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: List<Widget>.generate(
-          rate,
-          (index) => Icon(
-                Icons.favorite,
-                color: Colors.pink,
-                size: 15,
-              )),
-    );
-  }
-}
-
 class CustomList extends StatelessWidget {
   final List<String> data;
 
@@ -43,6 +24,72 @@ class CustomList extends StatelessWidget {
           ),
         );
       }).toList(),
+    );
+  }
+}
+
+class TagsMeal extends StatelessWidget {
+  final List<String> tags;
+
+  const TagsMeal({Key key, this.tags}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      direction: Axis.horizontal,
+      children: tags.map((item) {
+        return Padding(
+          padding: EdgeInsets.only(
+            left: 5,
+            right: 5,
+            top: 5,
+            bottom: 5,
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.blueAccent[200],
+                    Colors.blueAccent[100],
+                  ],
+                  begin: FractionalOffset.topLeft,
+                  end: FractionalOffset.bottomRight,
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: 15.0,
+                  right: 15.0,
+                  top: 10.0,
+                  bottom: 10.0,
+                ),
+                child: Text(
+                  item,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+}
+
+class SliceText extends StatelessWidget {
+  final String text;
+
+  const SliceText({Key key, this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text.length > 14 ? "${text.substring(0, 13)}..." : text,
+      style: TextStyle(color: Colors.black, fontSize: 17),
     );
   }
 }
