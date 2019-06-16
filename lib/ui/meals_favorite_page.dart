@@ -13,7 +13,8 @@ class MealsFavoritePage extends StatefulWidget {
   _MealsFavoritePageState createState() => _MealsFavoritePageState();
 }
 
-class _MealsFavoritePageState extends State<MealsFavoritePage> with WidgetsBindingObserver{
+class _MealsFavoritePageState extends State<MealsFavoritePage>
+    with WidgetsBindingObserver {
   DatabaseHelper _databaseHelper = DatabaseHelper.instance;
   List<Meals> _meals = [];
 
@@ -79,7 +80,9 @@ class _MealsFavoritePageState extends State<MealsFavoritePage> with WidgetsBindi
                 SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
             itemCount: _meals.length,
             itemBuilder: (context, position) => MealItem(
-                meals: _meals[position], position: position, category: "favorite-${widget.category}")),
+                meals: _meals[position],
+                position: position,
+                category: "favorite-${widget.category}")),
       );
     }
   }
