@@ -78,8 +78,8 @@ class _MealsFavoritePageState extends State<MealsFavoritePage> with WidgetsBindi
             gridDelegate:
                 SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
             itemCount: _meals.length,
-            itemBuilder: (context, position) =>
-                MealItem(_meals[position], position, "favorite-${widget.category}")),
+            itemBuilder: (context, position) => MealItem(
+                meals: _meals[position], position: position, category: "favorite-${widget.category}")),
       );
     }
   }
