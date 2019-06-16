@@ -12,7 +12,7 @@ class MealsDetail extends StatefulWidget {
   final String category;
   final String mealThumbs;
 
-  const MealsDetail({Key key, this.id, this.mealThumbs, this.category})
+  MealsDetail({Key key, this.id, this.mealThumbs, this.category})
       : super(key: key);
 
   @override
