@@ -1,4 +1,3 @@
-import 'package:http/http.dart' as http;
 import 'package:meals_catalogue/data/meals_data_mapper.dart';
 import 'package:meals_catalogue/database/meals_database.dart';
 import 'package:meals_catalogue/model/meals.dart';
