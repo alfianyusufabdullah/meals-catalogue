@@ -60,11 +60,7 @@ class TagsMeal extends StatelessWidget {
               ),
               child: Padding(
                 padding: EdgeInsets.only(
-                  left: 15.0,
-                  right: 15.0,
-                  top: 10.0,
-                  bottom: 10.0,
-                ),
+                    left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
                 child: Text(
                   item,
                   style: TextStyle(
