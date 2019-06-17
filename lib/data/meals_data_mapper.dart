@@ -22,15 +22,17 @@ dynamic generateList(dynamic json) {
 List<Meals> generateMealList(List<dynamic> data) {
   List<Meals> result = [];
 
-  data.forEach((item) {
-    var meal = Meals(
-      item["idMeal"] as String,
-      item["strMeal"] as String,
-      item["strMealThumb"] as String,
-    );
+  if (data != null && data.isNotEmpty){
+    data.forEach((item) {
+      var meal = Meals(
+        item["idMeal"] as String,
+        item["strMeal"] as String,
+        item["strMealThumb"] as String,
+      );
 
-    result.add(meal);
-  });
+      result.add(meal);
+    });
+  }
 
   return result;
 }
