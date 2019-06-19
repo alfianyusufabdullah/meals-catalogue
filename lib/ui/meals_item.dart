@@ -39,6 +39,7 @@ class _MealItemState extends State<MealItem> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: Key("meals-${widget.position.toString()}-item"),
       padding: widget.position % 2 == 1
           ? EdgeInsets.only(left: 5, right: 20, top: 10, bottom: 10)
           : EdgeInsets.only(left: 20, right: 5, top: 10, bottom: 10),

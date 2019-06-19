@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meals_catalogue/data/meals_data.dart';
+import 'package:meals_catalogue/common/meals_key.dart';
 import 'package:meals_catalogue/model/meals.dart';
 import 'package:meals_catalogue/ui/meals_item.dart';
 
@@ -22,7 +23,7 @@ class _MealsSearchState extends State<MealsSearch> {
       setState(() {
         if (response != null && response.isEmpty) {
           _meals = [];
-          _searchNotFound = "No result for \'$query\' ";
+          _searchNotFound = "No result for \'$query\'";
         } else {
           _meals = response;
         }
@@ -53,9 +54,17 @@ class _MealsSearchState extends State<MealsSearch> {
         headerSliverBuilder: (_, inner) {
           return [
             SliverAppBar(
+              leading: IconButton(
+                key: Key(KEY_SEARCH_LEADING),
+                icon: Icon(Icons.arrow_back),
+                onPressed: (){
+                  Navigator.of(context).pop();
+                },
+              ),
               elevation: _elevation,
               backgroundColor: Color.fromARGB(220, 255, 255, 255),
               title: TextField(
+                key: Key(KEY_SEARCH_FIELD),
                 autofocus: true,
                 style: TextStyle(fontSize: 17),
                 decoration: InputDecoration.collapsed(
@@ -88,6 +97,7 @@ class _MealsSearchState extends State<MealsSearch> {
       );
     } else {
       return GridView.builder(
+        key: Key(KEY_GRID_SEARCH),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 10,

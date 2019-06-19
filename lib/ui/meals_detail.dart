@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meals_catalogue/common/meals_common.dart';
+import 'package:meals_catalogue/common/meals_key.dart';
 import 'package:meals_catalogue/data/meals_data.dart';
 import 'package:meals_catalogue/database/meals_database.dart';
 import 'package:meals_catalogue/model/meals.dart';
@@ -114,6 +115,7 @@ class _MealsDetailState extends State<MealsDetail>
             return <Widget>[
               SliverAppBar(
                 leading: IconButton(
+                  key: Key(KEY_DETAIL_MEAL_LEADING),
                   icon: Icon(Icons.arrow_back),
                   onPressed: close,
                 ),
@@ -157,8 +159,10 @@ class _MealsDetailState extends State<MealsDetail>
   Widget detail() {
     if (_meals != null) {
       return Stack(
+        key: Key(KEY_DETAIL_MEAL_STACK),
         children: <Widget>[
           ListView(
+            key: Key(KEY_DETAIL_MEAL_LIST),
             padding: EdgeInsets.all(20),
             children: <Widget>[
               Padding(
@@ -213,6 +217,7 @@ class _MealsDetailState extends State<MealsDetail>
               scale: _floatingAnimation,
               alignment: FractionalOffset.center,
               child: FloatingActionButton(
+                key: Key(KEY_DETAIL_MEAL_FAB),
                 backgroundColor: Colors.pinkAccent,
                 onPressed: updateFavorite,
                 child: Icon(

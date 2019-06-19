@@ -38,12 +38,26 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "alfianyusufabdullah.meals_catalogue"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    flavorDimensions "app"
+    productFlavors {
+        debug_release {
+            dimension "app"
+            applicationId "alfianyusufabdullah.meals_catalogue.debug_release"
+            versionCode flutterVersionCode.toInteger()
+            versionName flutterVersionName
+        }
+
+        stage_release {
+            dimension "app"
+            applicationId "alfianyusufabdullah.meals_catalogue.stage_release"
+            versionCode flutterVersionCode.toInteger()
+            versionName flutterVersionName
+        }
     }
 
     buildTypes {
