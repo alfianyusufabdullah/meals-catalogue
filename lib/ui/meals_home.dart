@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:meals_catalogue/ui/meals_dessert.dart';
 import 'package:meals_catalogue/ui/meals_favorite.dart';
 import 'package:meals_catalogue/ui/meals_seafood.dart';
+import 'package:meals_catalogue/common/meals_key.dart';
 
 class MealsHome extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class _MealsHomeState extends State<MealsHome> {
   List<BottomNavigationBarItem> bottomNavigationItem = [
     BottomNavigationBarItem(
       icon: Padding(
+        key: Key(KEY_BOTTOM_ITEM_DESSERT),
         padding: EdgeInsets.all(5.0),
         child: Image.asset("asset/cake.png"),
       ),
@@ -21,6 +23,7 @@ class _MealsHomeState extends State<MealsHome> {
     ),
     BottomNavigationBarItem(
       icon: Padding(
+        key: Key(KEY_BOTTOM_ITEM_SEAFOOD),
         padding: EdgeInsets.all(5.0),
         child: Image.asset("asset/shrimp.png"),
       ),
@@ -28,6 +31,7 @@ class _MealsHomeState extends State<MealsHome> {
     ),
     BottomNavigationBarItem(
       icon: Padding(
+        key: Key(KEY_BOTTOM_ITEM_FAVORITE),
         padding: EdgeInsets.all(5.0),
         child: Image.asset("asset/hearts.png"),
       ),
@@ -68,6 +72,7 @@ class _MealsHomeState extends State<MealsHome> {
     return Scaffold(
       body: pageView(),
       bottomNavigationBar: BottomNavigationBar(
+        key: Key(KEY_BOTTOM_NAVIGATION),
         type: BottomNavigationBarType.shifting,
         onTap: (position) {
           pageChanged(position);

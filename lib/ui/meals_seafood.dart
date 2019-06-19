@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-
 import 'package:meals_catalogue/data/meals_data.dart';
+import 'package:meals_catalogue/common/meals_key.dart';
 import 'package:meals_catalogue/model/meals.dart';
 import 'package:meals_catalogue/ui/meals_item.dart';
+import 'package:meals_catalogue/ui/meals_search.dart';
+
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MealsSeafood extends StatefulWidget {
   @override
@@ -69,6 +71,16 @@ class _MealsSeafoodState extends State<MealsSeafood> {
           return [
             SliverAppBar(
               elevation: _elevation,
+              actions: <Widget>[
+                IconButton(
+                  key: Key(KEY_MEALS_SEARCH),
+                  icon: Icon(Icons.search),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MealsSearch()));
+                  },
+                ),
+              ],
               backgroundColor: Color.fromARGB(220, 255, 255, 255),
               title: Row(
                 children: <Widget>[
@@ -130,6 +142,7 @@ class _MealsSeafoodState extends State<MealsSeafood> {
       );
     } else {
       return GridView.builder(
+        key: Key(KEY_GRID_SEAFOOD),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 10,
